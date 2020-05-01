@@ -28,6 +28,7 @@ exports.base = {
 			// 创建一个JSON
 			if (filePath!=6){
 				uni.showLoading({
+					mask:true,
 					title:this.$store.state.lanser.Loading
 				})
 			}

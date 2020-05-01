@@ -43,7 +43,11 @@
 					itemList:['中文','ئۇيغۇرچە'      ,'English'],
 					itemColor:"#FFD33E",
 					success: (a) => {
+						
 						this.$store.commit('setlanser',a.tapIndex)
+						uni.setNavigationBarTitle({
+						    title: this.kjhx.Other
+						})
 					}
 				})
 			},
@@ -70,14 +74,15 @@
 			}
 		},
 		onShow() {
+			uni.setNavigationBarTitle({
+			    title: this.kjhx.Other
+			})
 			var dxcr = document.getElementsByClassName("uni-actionsheet__action")
 			   dxcr[0].children[0].innerText =`${this.kjhx.Cancel}`
 			
 		},
 		mounted() {
-			uni.setNavigationBarTitle({
-			    title: this.$store.state.Other
-			})
+			
 		}
 	}
 </script>

@@ -82,7 +82,7 @@
 			"path": "pages/kongzhi/index",
 			"bz": "控制",
 			"style": {
-				"navigationBarTitleText": "控制"
+				"navigationBarTitleText": ""
 				/* #ifdef  H5 */
 				,"navigationStyle": "custom"
 				/* #endif */

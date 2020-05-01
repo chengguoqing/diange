@@ -17,9 +17,9 @@
 					</view>
 				</view>
 				<view class="mt10">
-					<view class="f_b fz28 mr40" v-for="(sd,idx) in ddfrt" @tap="dfd(idx)">
+					<view class="f_b fz28 mr40" v-for="(sd,idx) in ddfrt" @tap="dfd(sd.codes,idx)">
 						<text class="kjhxdrrt cz" :class="idx==idxsw?'act':''"></text>
-						{{sd}}
+						{{sd.name}}
 					</view>
 				</view>
 			</view>
@@ -42,7 +42,7 @@
 			<view class="z3 fz32">
 				{{kjhx.Hot}}{{kjhx.Search}}
 			</view>
-			<publiclist :SongList="SongListsd" v-if="SongListsd" :dsfrttyx="false"></publiclist>
+			<publiclist :SongList="SongListsd" v-if="SongListsd" ></publiclist>
 			</view>
 
 		</view>
@@ -57,14 +57,26 @@
 			return {
 				kjjnxr:false,
 				SongList: [],
-				SongListsd:'',
+				SongListsd:[],
 				xrrtxeertx: '',
 				seartext: "",
 				idxsw: 0,
-				ddfrt: [this.$store.state.lanser.All,this.$store.state.lanser.Song, this.$store.state.lanser.Singers],
+				isdrer:1,
+				ddfrt:[
+					{
+						name:this.$store.state.lanser.Song,
+						codes:1
+					},{
+						name:this.$store.state.lanser.Singers,
+						codes:2
+					},{
+						name:this.$store.state.lanser.All,
+						codes:0
+					}
+				],
 				khsdre: '',
 				skkjde: [],
-				tishid:''
+				tishid:this.$store.state.lanser.SearchDescription
 			}
 		},
 		components: {
@@ -98,10 +110,18 @@
 				if (!hjhggsd.LikeSearchName){
 					this.tishid = this.kjhx.SearchDescription
 				}else {
-					this.tishid =this.$store.state.lanser.EverybodySearching + hjhggsd.LikeSearchName
+					this.tishid =this.$store.state.lanser.EverybodySearching + ' ' +hjhggsd.LikeSearchName
 				}
 				if (hjhggsd.SongList.length>0){
-					this.SongListsd = hjhggsd.SongList
+					hjhggsd.SongList.map(a=>{
+						if (!a.IsSelected) {
+							a.IsSelected = false
+							a.cls = ""
+						} else {
+							a.cls = "act"
+						}
+						this.SongListsd.push(a)
+					})
 				}
 				
 			},
@@ -110,12 +130,13 @@
 
 				})
 			},
-			dfd(idx) {
+			dfd(sd,idx) {
+				this.isdrer = sd
 				this.idxsw = idx
 			},
 			fdgfgf(ihhdf) {
 				uni.navigateTo({
-					url: '/pages/index/sousuojieguo?ihhdf=' + ihhdf +'&type='+this.idxsw
+					url: '/pages/index/sousuojieguo?ihhdf=' + ihhdf +'&type='+this.isdrer
 				})
 			},
 			async kkjsdddv(a, b, c, d,e) {
@@ -138,7 +159,7 @@
 				hhgsd.PageNo = this.pages
 				hhgsd.ListCount = 20
 				hhgsd.Value = e.detail.value
-				hhgsd.SearchType = this.idxsw
+				hhgsd.SearchType = this.isdrer
 				this.kkjsdddv("vod/server/sendmessage", 'Search-Key', hhgsd, 2,6)
 			},
 			// 搜索按钮触发

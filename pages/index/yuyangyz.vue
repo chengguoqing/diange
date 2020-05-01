@@ -8,10 +8,11 @@
 			<text class="sdfrtyxe"></text>
 			<icon type="search" size="20" class="dsftryteer" @tap="isSearch=true"></icon>
 		</scroll-view>
+		
 		<view class="xrrtxeertx" :style="{height:xrrtxeertx+'px'}">
 			<swiper class="h100" @change="jhxerert" :current="xseerr">
 				<swiper-item v-for="(sd,idx) in dhxewer">
-						<component is="xzyypage" v-if="idx==xseerr" :isSearch="isSearch" @closertr="isSearch=false"  :SongTypeId="sd.id" :urls="urls"></component>
+						<component is="xzyypage"  v-if="idx==xseerr" :isSearch="isSearch" @closertr="isSearch=false"  :SongTypeId="sd.id" :urls="urls" ></component>
 					
 				</swiper-item>
 			</swiper>
@@ -23,6 +24,7 @@
 	export default {
 		data() {
 			return {
+				xcddfrt:'',
 				isSearch:false,
 				xseerr: 0,
 				xrrtxeertx: '',

@@ -161,11 +161,12 @@
 			}
 		},
 		onLoad() {
-			uni.setNavigationBarTitle({
-			    title: this.$store.state.Control
-			})
+			
 		},
 		onShow(){
+			uni.setNavigationBarTitle({
+			    title: this.kjhx.Control
+			})
 			var dxcr = document.getElementsByClassName("uni-actionsheet__action")
 			   dxcr[0].children[0].innerText =`${this.kjhx.Cancel}`
 		},
@@ -176,6 +177,7 @@
 			// 发送图片
 			fasongimg(){
 				uni.chooseImage({
+					count:1,//只能上传一张图片
 				    success: async (chooseImageRes) => {
 				        const tempFilePaths = chooseImageRes.tempFilePaths;
 						await this.post('vod/Server/UploadFile','Image-Upload',null,3,tempFilePaths[0])

@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view v-if="kkjjsd">
 		<view class="jhggxseert dx_jz w100 row cen">
 			<view class="col">
 				<view class="xwerrtxe fz30 z6 pr cen   f_b cz " :class="kjhse==0?'act':''" @tap="kjhse=0">
@@ -14,8 +14,11 @@
 		</view>
 		<view class="xrrtxeertx" :style="{height:xrrtxeertx+'px'}">
 			<swiper class="h100" @change="jhxerert" :current="kjhse">
-				<swiper-item v-for="(sd,idx) in urlsd">
-					<component is="xzyypage" v-if="idx==kjhse" :urls="sd" :isyhgg="idx==0?'1':''"></component>
+				<swiper-item >
+					<component is="xzyypage" v-if="0==kjhse" urls="TheList-Selected" isyhgg="1" hggbbsd="3"></component>
+				</swiper-item>
+				<swiper-item >
+					<component is="xzyypage" v-if="1==kjhse" urls="TheList-Singed" isyhgg=""></component>
 				</swiper-item>
 			</swiper>
 		</view>
@@ -28,6 +31,7 @@
 	export default {
 		data() {
 			return {
+				kkjjsd:false,
 				urlsd: ['TheList-Selected', 'TheList-Singed'],
 				xrrtxeertx: '',
 				kjhse: 0
@@ -47,6 +51,15 @@
 				this.kjhse = e.detail.current
 			}
 		},
+		onShow() {
+			uni.setNavigationBarTitle({
+			    title: this.kjhx.Selected
+			})
+			this.kkjjsd = true
+		},
+		onHide(){
+			this.kkjjsd = false
+		},	
 		onLoad(e) {
 			this.xrrtxeertx = uni.getSystemInfoSync().windowHeight - 50
 		},

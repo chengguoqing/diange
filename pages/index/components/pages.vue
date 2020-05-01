@@ -1,32 +1,39 @@
 <template>
-	<scroll-view scroll-y="true" class="h100" refresher-enabled="true" :refresher-triggered="triggered"
-	 :refresher-threshold="100"  @refresherpulling="onPulling" @refresherrefresh="onRefresh"
-	 @refresherrestore="onRestore" @refresherabort="onAbort" @scrolltolower="jjhseer">
-		<view class="">
-			<view class="pd">
-				<view class="parentse ">
-					<navigator class="cdderrty pr" v-for="sd in SongList" :url='"/pages/index/geshouxq?name=" + sd.SingerName + "&femian="+sd.ImagePaths+"&id="+sd.Id'>
-						<image :src="sd.ImagePaths" mode="aspectFill" v-if="sd.ImagePath"></image>
-						<image src="../../../static/img/morentx.png" mode="aspectFill" v-else></image>
-						<view class="kjhxer ">
-							{{sd.SingerName}}
-						</view>
-					</navigator>
+	<view class="h100" v-if="isjihs">
+		<scroll-view scroll-y="true" class="h100" :refresher-triggered="triggered" :refresher-threshold="100"
+		 @refresherpulling="onPulling" @refresherrefresh="onRefresh" @refresherrestore="onRestore" @refresherabort="onAbort"
+		 @scrolltolower="jjhseer">
+			<view class="">
+				<view class="pd">
+					<view class="parentse ">
+						<navigator class="cdderrty pr" v-for="sd in SongList" :url='"/pages/index/geshouxq?name=" + sd.SingerName + "&femian="+sd.ImagePaths+"&id="+sd.Id'>
+							<image :lazy-load="true" :src="sd.ImagePaths" mode="aspectFill" v-if="sd.ImagePath"></image>
+							<image src="../../../static/img/morentx.png" mode="aspectFill" v-else></image>
+							<view class="kjhxer ">
+								{{sd.SingerName}}
+							</view>
+						</navigator>
+					</view>
 				</view>
 			</view>
-		</view>
-		<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>10" />
-	</scroll-view>
+			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
+			<view class="fz26 z9 cen pt20" v-if="SongList.length<20">
+				------
+			</view>
+		</scroll-view>
+	</view>
 </template>
 <script>
 	export default {
 		data() {
 			return {
+				isjihs: false,
+				chuci: false,
 				SongList: [],
 				triggered: true,
 				_freshing: false,
-				pages:1,
-				loading:'more',
+				pages: 1,
+				loading: 'more',
 				idxse: 0
 			}
 		},
@@ -35,40 +42,42 @@
 		},
 		methods: {
 			async kkjsdddv(a, b, c, d) {
+				if (this.SongList.length < 20 && this.chuci) {
+					return
+				}
 				let sdeer = await this.post(a, b, c, d)
-				JSON.parse(sdeer.MessageContent).SingerList.map(a=>{
+				JSON.parse(sdeer.MessageContent).SingerList.map(a => {
 					if (!a.IsSelected) {
 						a.IsSelected = false
 						a.ImagePaths = uni.getStorageSync('gcook').ImageAddress + a.ImagePath
-						a.cls=""
+						a.cls = ""
 					} else {
-						a.cls="act"
+						a.cls = "act"
 					}
 					this.SongList.push(a)
 				})
-				console.log(this.SongList)
-				this.loading ="more"
+				this.isjihs = true
+				this.loading = "more"
 			},
 			hhsf(idx) {
 				this.idxse = idx
 			},
-			initd () {
+			initd() {
 				let hhgsd = {}
 				hhgsd.Value = null
-				hhgsd.SingerLangId=this.$store.state.SingerLangId
+				hhgsd.SingerLangId = this.$store.state.SingerLangId
 				hhgsd.SingerTypeId = this.$store.state.SingerTypeId
 				hhgsd.Value = this.$store.state.seartext
 				hhgsd.PageNo = this.pages
 				hhgsd.ListCount = 20
 				this.kkjsdddv("vod/server/sendmessage", 'Search-Singer', hhgsd, 2)
 			},
-			iqhjwr () {
+			iqhjwr() {
 				this.SongList = []
 				this.pages = 1
 				this.initd()
 			},
-			onPulling(e) {
-			},
+			onPulling(e) {},
 			async onRefresh() {
 				if (this._freshing) return;
 				this._freshing = true;
@@ -81,14 +90,17 @@
 				console.log("onAbort");
 			},
 			onRestore() {
-				this.SongList=[]
+				this.SongList = []
 				this.triggered = 'restore'; // 需要重置
-				this.pages=1
+				this.pages = 1
 				this.initd()
 			},
-			jjhseer(e){
+			jjhseer(e) {
+				if (this.SongList.length < 20) {
+					return
+				}
 				this.pages++
-				this.loading ="loading"
+				this.loading = "loading"
 				this.initd()
 			}
 		},
@@ -98,7 +110,6 @@
 	}
 </script>
 <style scoped>
-
 	.kjhggdert {
 		border-radius: 20upx;
 		font-size: 26upx;
@@ -131,7 +142,8 @@
 		grid-column-gap: 40upx;
 		grid-row-gap: 40upx;
 	}
-	.kjhxer{
+
+	.kjhxer {
 		position: absolute;
 		width: 100%;
 		left: 0;
@@ -139,7 +151,7 @@
 		line-height: 50upx;
 		color: #fff;
 		font-size: 28upx;
-		background: rgba(0,0,0,0.5);
+		background: rgba(0, 0, 0, 0.5);
 		text-align: center;
 	}
 </style>

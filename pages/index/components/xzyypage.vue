@@ -1,23 +1,32 @@
 <template>
 	<view class="h100" v-if="isjihs">
-		<scroll-view scroll-y="true" class="h100" refresher-enabled="true" :refresher-triggered="triggered"
+		<scroll-view scroll-y="true" class="h100"  :refresher-triggered="triggered"
 		 :refresher-threshold="100" @refresherpulling="onPulling" @refresherrefresh="onRefresh" @refresherrestore="onRestore"
 		 @refresherabort="onAbort" @scrolltolower="jjhseer">
+		 <view class="pd pm20 pt20" v-if="isSearch">
+		 	<view class="row">
+		 		<view class="sdfsdtyxer pr col">
+		 			<icon type="search" size="20" class="jjhhxerrt ab"></icon>
+		 			<input confirm-type="search" v-model="seartext" class="sdftweert" placeholder=""  />
+		 			<icon type="clear" class="jjhhxerrt ac" size="18" @tap="closert"></icon>
+		 		</view>
+		 		<view class="fz28 z3 pd pt10 " @tap="sjjheert">
+		 			搜索
+		 		</view>
+		 	</view>
+		 </view>
 			<view v-if="SongList.length>0">
-				<view class="pd pm20 pt20" v-if="isSearch">
-					<view class="sdfsdtyxer pr">
-						<icon type="search" size="20" class="jjhhxerrt ab"></icon>
-						<input confirm-type="search" v-model="seartext" class="sdftweert" placeholder="" @confirm="sjjheert"
-						 @blur="sjjheert" />
-						<icon type="clear" class="jjhhxerrt ac" size="18" @tap="closert"></icon>
-					</view>
+				
+				<publiclist :SongList="SongList" v-if="SongList" @zhiding="zhiding" @delsd="delsd" @xuanze="xuanze" :isyhgg="isyhgg" :hggbbsd="hggbbsd"></publiclist>
+				<uni-load-more :contentText="contentText" iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
+				<view class="fz26 z9 cen pt20" v-if="SongList.length<20">
+					------
 				</view>
-				<publiclist :SongList="SongList" v-if="SongList" @zhiding="zhiding" @delsd="delsd" @xuanze="xuanze" :isyhgg="isyhgg"></publiclist>
-				<uni-load-more :contentText="contentText" iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>10" />
-
 			</view>
-			<view class="fz26 z9 cen pt20" v-if="SongList.length<=0">
-				{{kjhx.EmptyData}}
+			<view v-if="sfgftyyd">
+				<view class="fz26 z9 cen pt20" v-if="SongList.length<=0">
+					{{kjhx.EmptyData}}
+				</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -25,9 +34,11 @@
 <script>
 	import publiclist from "@/components/publiclist.vue"
 	export default {
-		props: ['SongTypeId', 'urls', 'isSearch', 'seartext', 'SearchType','isyhgg'],
+		props: ['SongTypeId', 'urls', 'isSearch', 'seartext', 'SearchType','isyhgg','hggbbsd'],
 		data() {
 			return {
+				sfgftyyd:true,
+				chuci:false,
 				isjihs:false,
 				SongList: [],
 				triggered: true,
@@ -56,6 +67,7 @@
 				this.$emit("closertr")
 			},
 			async kkjsdddv(a, b, c, d) {
+				
 				let sdeer = await this.post(a, b, c, d)
 				JSON.parse(sdeer.MessageContent).SongList.map(a => {
 					if (!a.IsSelected) {
@@ -67,6 +79,9 @@
 					this.SongList.push(a)
 				})
 				this.$emit('huiojd',this.SongList.length)
+				this.chuci = true
+				this.isjihs= true
+				this.sfgftyyd = true
 				this.loading = "more"
 			},
 			initsd() {
@@ -82,7 +97,6 @@
 				hhgsd.ListCount = 20
 				hhgsd.Value = this.seartext
 				hhgsd.SearchType = this.SearchType || 0
-				this.isjihs= true
 				this.kkjsdddv("vod/server/sendmessage", this.urls, hhgsd, 2)
 			},
 			onPulling(e) {},
@@ -105,6 +119,9 @@
 				console.log("onAbort");
 			},
 			jjhseer(e) {
+				if (this.SongList.length<20 ){
+					return
+				}
 				this.pages++
 				this.loading = "loading"
 				this.initsd()
@@ -123,6 +140,7 @@
 				uni.hideLoading()
 			},
 			sjjheert() { // 搜索觸發
+			this.sfgftyyd = false
 				this.pages = 1
 				this.SongList = []
 				this.initsd()

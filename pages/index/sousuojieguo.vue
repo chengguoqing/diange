@@ -1,6 +1,6 @@
 <template>
-	<view class="btm" :style="{height:xrrtxeertx+'px'}">
-		<scroll-view scroll-y="true" class="h100" refresher-enabled="true" :refresher-triggered="triggered"
+	<view class="btm" :style="{height:xrrtxeertx+'px'}" v-if="iijxsd">
+		<scroll-view scroll-y="true" class="h100"  :refresher-triggered="triggered"
 		 :refresher-threshold="100" @refresherpulling="onPulling" @refresherrefresh="onRefresh" @refresherrestore="onRestore"
 		 @refresherabort="onAbort" @scrolltolower="jjhseer">
 			<uni-list v-if="typese==2">
@@ -13,8 +13,12 @@
 					<view>{{kjhx.Singers}}：<text class="ye f_b">{{sd.SingerName}}</text></view>
 				</uni-list-item>
 			</uni-list>
-			<publiclist  :SongList="SongList" v-if="typese==1||typese==0" @zhiding="zhiding" @delsd="delsd" @xuanze="xuanze"></publiclist>
-			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>10" />
+			<publiclist :SongList="SongList" v-if="typese==1||typese==0" @zhiding="zhiding" @delsd="delsd" @xuanze="xuanze"></publiclist>
+			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
+			<view class="fz26 z9 cen pt20" v-if="SongList.length<20">
+				------
+			</view>
+
 		</scroll-view>
 	</view>
 </template>
@@ -23,6 +27,7 @@
 	export default {
 		data() {
 			return {
+				iijxsd:false,
 				typese: 0, // 0全部  1歌曲  2歌手
 				ihhdf: "",
 				SongList: [],
@@ -32,8 +37,8 @@
 				_freshing: false,
 				pages: 1,
 				ddrrtt: '',
-				cansu:'',
-				kkjhjjdd:[]
+				cansu: '',
+				kkjhjjdd: []
 			}
 		},
 		components: {
@@ -65,7 +70,7 @@
 					}
 					this.SongList.push(a)
 				})
-				if (this.typese == 0){
+				if (this.typese == 0) {
 					JSON.parse(sdeer.MessageContent).SingerList.map(a => {
 						if (!a.IsSelected) {
 							a.IsSelected = false
@@ -81,6 +86,7 @@
 						this.kkjhjjdd.push(a)
 					})
 				}
+				this.iijxsd= true
 				this.loading = "more"
 			},
 			gethhhgs(url) {
@@ -110,6 +116,9 @@
 				console.log("onAbort");
 			},
 			jjhseer(e) {
+				if (this.SongList.length<20 ){
+					return
+				}
 				this.pages++
 				this.loading = "loading"
 				this.gethhhgs()

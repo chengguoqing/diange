@@ -12,10 +12,15 @@
 				<icon type="search" size="20" class="jjhhxerrt" @tap="isSearch=true"></icon>
 			</view>
 			<view class="pd pm20" v-if="isSearch">
-				<view class="sdfsdtyxer pr">
-					<icon type="search" size="20" class="jjhhxerrt ab"></icon>
-					<input confirm-type="search" v-model="seartext" class="sdftweert"  @confirm="sjjheert" @blur="sjjheert"/>
-					<icon type="clear" class="jjhhxerrt ac" size="18" @tap="seartext='';isSearch=false"></icon>
+				<view class="row">
+					<view class="sdfsdtyxer pr col">
+						<icon type="search" size="20" class="jjhhxerrt ab"></icon>
+						<input confirm-type="search" v-model="seartext" class="sdftweert" />
+						<icon type="clear" class="jjhhxerrt ac" size="18" @tap="seartext='';isSearch=false"></icon>
+					</view>
+					<view class="fz28 z3 pd pt10 " @tap="sjjheert">
+						搜索
+					</view>
 				</view>
 			</view>
 		<view class="xrrtxeertx" :style="{height:xrrtxeertx+'px'}" >
