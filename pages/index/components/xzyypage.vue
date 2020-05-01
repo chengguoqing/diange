@@ -7,7 +7,7 @@
 		 	<view class="row">
 		 		<view class="sdfsdtyxer pr col">
 		 			<icon type="search" size="20" class="jjhhxerrt ab"></icon>
-		 			<input confirm-type="search" v-model="seartext" class="sdftweert" placeholder=""  />
+		 			<input type="text" v-model="seartext" class="sdftweert" placeholder=""  />
 		 			<icon type="clear" class="jjhhxerrt ac" size="18" @tap="closert"></icon>
 		 		</view>
 		 		<view class="fz28 z3 pd pt10 " @tap="sjjheert">
@@ -37,6 +37,7 @@
 		props: ['SongTypeId', 'urls', 'isSearch', 'seartext', 'SearchType','isyhgg','hggbbsd'],
 		data() {
 			return {
+				jhjhsde:0,
 				sfgftyyd:true,
 				chuci:false,
 				isjihs:false,
@@ -65,10 +66,12 @@
 			closert() {
 				this.seartext = ''
 				this.$emit("closertr")
+				this.sjjheert()
 			},
 			async kkjsdddv(a, b, c, d) {
 				
 				let sdeer = await this.post(a, b, c, d)
+				this.jhjhsde = JSON.parse(sdeer.MessageContent).SongList.length
 				JSON.parse(sdeer.MessageContent).SongList.map(a => {
 					if (!a.IsSelected) {
 						a.IsSelected = false
@@ -119,7 +122,7 @@
 				console.log("onAbort");
 			},
 			jjhseer(e) {
-				if (this.SongList.length<20 ){
+				if (this.SongList.length<20 ||this.jhjhsde<20){
 					return
 				}
 				this.pages++

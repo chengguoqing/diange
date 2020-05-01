@@ -93,10 +93,10 @@
 			},
 			async jhhxdrer(idx) {
 				await this.post("vod/server/sendmessage", "Song-Top", this.SongList[idx].Id)
-				let xcrtra = this.SongList[0],
+				let xcrtra = this.SongList[1],
 					xcrtrb = this.SongList[idx]
 				this.$set(this.SongList, idx, xcrtra)
-				this.$set(this.SongList, 0, xcrtrb)
+				this.$set(this.SongList, 1, xcrtrb)
 			},
 			hihssd() {
 
@@ -164,7 +164,7 @@
 	}
 
 	.dsfsdt .cdftyxzer {
-		opacity: 0.4;
+		opacity: 0;
 		pointer-events: none
 	}
 </style>

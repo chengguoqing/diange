@@ -55,6 +55,7 @@
 			uni.setNavigationBarTitle({
 			    title: this.kjhx.Selected
 			})
+			this.kjhse=0
 			this.kkjjsd = true
 		},
 		onHide(){

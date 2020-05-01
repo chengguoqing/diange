@@ -236,9 +236,12 @@
 				    success: async (res) => {
 				        const tempFilePaths = res.tempFilePath;
 				        uni.showLoading({
-				        	title:'图片上传中'
+				        	title:'文件上传中'
 				        })
 						await this.post('vod/Server/UploadFile','File-Upload',null,3,tempFilePaths)
+						uni.showToast({
+							title:this.$store.state.lanser.SuccessDescription
+						})
 					}
 				})
 			}

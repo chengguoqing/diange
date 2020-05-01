@@ -80,15 +80,15 @@ exports.base = {
 						complete: (res) => {
 							uni.hideLoading()
 						},
-						success: (res) => {
+						success: (res) => { 
 							var result = res.data;
 							if (result.hasOwnProperty('IsExpired') && result.IsExpired == true) {
-								uni.showModal({
-								    content: this.$store.state.lanser.ExpiredDescription,
-									showCancel:false,
-									confirmText:this.$store.state.lanser.OK,
-								    success: function (res) {
-								    }
+								
+								uni.showToast({
+								    title:this.$store.state.lanser.ExpiredDescription,
+									mask:true,
+									icon:"none",
+								    duration: 999999999999999999
 								});
 								return
 							}
@@ -131,12 +131,11 @@ exports.base = {
 						success: (res) => {
 							var result = res.data;
 							if (result.hasOwnProperty('IsExpired') && result.IsExpired == true) {
-								uni.showModal({
-								    content: this.$store.state.lanser.ExpiredDescription,
-									showCancel:false,
-									confirmText:this.$store.state.lanser.OK,
-								    success: function (res) {
-								    }
+								uni.showToast({
+								    title:this.$store.state.lanser.ExpiredDescription,
+									mask:true,
+									icon:"none",
+								    duration: 999999999999999999
 								});
 								return
 							}

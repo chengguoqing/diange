@@ -16,7 +16,8 @@ const store = new Vuex.Store({
 		SingerTypeId:1,
 		SingerLangId:1,
 		seartext:'', // 歌手选择的输入框内容
-		indexbanner:'' // 首页的轮播图
+		indexbanner:'', // 首页的轮播图
+		dsfdsrr:''
 	},
 	mutations: {
 		setlanser(state,data) {

@@ -83,8 +83,10 @@
 		},
 		onLoad() {
 		},
+		onShow() {
+				this.$store.state.SingerLangId = 1
+		},
 		mounted() {
-			
 			let sdr = uni.getStorageSync('lanindex')
 			this.$store.commit('setlanser', sdr || 0)
 		}

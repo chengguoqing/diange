@@ -1,26 +1,5 @@
 {
 	"pages": [{
-			"path": "pages/test",
-			"bz": "loader",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},{
-			"path": "pages/loading",
-			"bz": "loader",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},{
-			"path": "pages/loading",
-			"bz": "loader",
-			"style": {
-				"navigationBarTitleText": "",
-				"navigationStyle": "custom"
-			}
-		},{
 			"path": "pages/index/index",
 			"bz": "外星球TaxkiPilanet",
 			"style": {
@@ -28,6 +7,20 @@
 				/* #ifdef  H5 */
 				,"navigationStyle": "custom"
 				/* #endif */
+			}
+		},{
+			"path": "pages/loading",
+			"bz": "loader",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
+			}
+		},{
+			"path": "pages/loading",
+			"bz": "loader",
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationStyle": "custom"
 			}
 		}, {
 			"path": "pages/index/sousuojieguo",

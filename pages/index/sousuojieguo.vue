@@ -14,7 +14,7 @@
 				</uni-list-item>
 			</uni-list>
 			<publiclist :SongList="SongList" v-if="typese==1||typese==0" @zhiding="zhiding" @delsd="delsd" @xuanze="xuanze"></publiclist>
-			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
+			<uni-load-more :contentText="contentText" iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
 			<view class="fz26 z9 cen pt20" v-if="SongList.length<20">
 				------
 			</view>
@@ -28,6 +28,7 @@
 		data() {
 			return {
 				iijxsd:false,
+				jhjhsde:0,
 				typese: 0, // 0全部  1歌曲  2歌手
 				ihhdf: "",
 				SongList: [],
@@ -38,7 +39,12 @@
 				pages: 1,
 				ddrrtt: '',
 				cansu: '',
-				kkjhjjdd: []
+				kkjhjjdd: [],
+				contentText: {
+					contentdown: '------',
+					contentrefresh: this.$store.state.lanser.Loading,
+					contentnomore: '------'
+				}
 			}
 		},
 		components: {
@@ -56,6 +62,7 @@
 			// 获取歌曲列表
 			async kkjsdddv(a, b, c, d) {
 				let sdeer = await this.post(a, b, c, d)
+				this.jhjhsde = JSON.parse(sdeer.MessageContent)[this.cansu].length
 				JSON.parse(sdeer.MessageContent)[this.cansu].map(a => {
 					if (!a.IsSelected) {
 						a.IsSelected = false
@@ -116,7 +123,7 @@
 				console.log("onAbort");
 			},
 			jjhseer(e) {
-				if (this.SongList.length<20 ){
+				if (this.SongList.length<20  ||this.jhjhsde<20){
 					return
 				}
 				this.pages++

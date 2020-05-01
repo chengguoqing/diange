@@ -16,18 +16,27 @@
 					</view>
 				</view>
 			</view>
-			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19" />
-			<view class="fz26 z9 cen pt20" v-if="SongList.length<20">
+			<uni-load-more iconType="snow" :iconSize="36" :status="loading" v-if="SongList.length>19&&jhjhsd" />
+			<view class="fz26 z9 cen pt20" v-if="SongList.length<20 &&SongList.length>1 || !jhjhsd">
 				------
+			</view>
+			<view v-if="sfgftyyd">
+				<view class="fz26 z9 cen pt20" v-if="SongList.length<=0">
+					{{kjhx.EmptyData}}
+				</view>
 			</view>
 		</scroll-view>
 	</view>
 </template>
 <script>
+	import geshou from "@/static/js/dayys.js"
 	export default {
 		data() {
 			return {
+				sfgftyyd:false,
+				jhjhsd:true,
 				isjihs: false,
+				jhjhsde:0,
 				chuci: false,
 				SongList: [],
 				triggered: true,
@@ -37,15 +46,22 @@
 				idxse: 0
 			}
 		},
+		computed: {
+			kjhx() {
+				return this.$store.state.lanser
+			}
+		},
 		components: {
 
 		},
 		methods: {
 			async kkjsdddv(a, b, c, d) {
+				this.sfgftyyd=false
 				if (this.SongList.length < 20 && this.chuci) {
 					return
 				}
 				let sdeer = await this.post(a, b, c, d)
+				this.jhjhsde = JSON.parse(sdeer.MessageContent).SingerList.length
 				JSON.parse(sdeer.MessageContent).SingerList.map(a => {
 					if (!a.IsSelected) {
 						a.IsSelected = false
@@ -58,6 +74,7 @@
 				})
 				this.isjihs = true
 				this.loading = "more"
+				this.sfgftyyd = true
 			},
 			hhsf(idx) {
 				this.idxse = idx
@@ -75,6 +92,7 @@
 			iqhjwr() {
 				this.SongList = []
 				this.pages = 1
+				this.jhjhsd = true
 				this.initd()
 			},
 			onPulling(e) {},
@@ -96,7 +114,9 @@
 				this.initd()
 			},
 			jjhseer(e) {
-				if (this.SongList.length < 20) {
+				console.log(this.jhjhsde)
+				if (this.SongList.length < 20 ||this.jhjhsde<20) {
+					this.jhjhsd = false
 					return
 				}
 				this.pages++
@@ -105,8 +125,9 @@
 			}
 		},
 		mounted() {
+			this.$store.state.SingerTypeId = 1
 			this.initd()
-		},
+		}
 	}
 </script>
 <style scoped>
