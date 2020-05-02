@@ -102,6 +102,9 @@
 			},
 			sjjheert() {
 				this.$refs['sseert' + this.xseerr][0].iqhjwr()
+				if (!this.$store.state.seartext) {
+					this.isSearch = false
+				}
 				// this.$store.state.seartext = ''
 			}
 		},
