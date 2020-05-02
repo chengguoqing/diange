@@ -85,6 +85,7 @@
 		},
 		onShow() {
 				this.$store.state.SingerLangId = 1
+				this.$store.state.seartext = ''
 		},
 		mounted() {
 			let sdr = uni.getStorageSync('lanindex')

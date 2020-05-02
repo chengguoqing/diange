@@ -15,7 +15,7 @@
 			<view class="row">
 				<view class="sdfsdtyxer pr col">
 					<icon type="search" size="20" class="jjhhxerrt ab"></icon>
-					<input confirm-type="search" v-model="$store.state.seartext" class="sdftweert" />
+					<input type="text" v-model="$store.state.seartext" class="sdftweert" />
 					<icon type="clear" class="jjhhxerrt ac" size="18" @tap="ssjjerr"></icon>
 				</view>
 				<view class="fz28 z3 pd pt10 " @tap="sjjheert">
@@ -84,6 +84,7 @@
 		methods: {
 			ssjjerr() {
 				this.seartext = '';
+				this.$store.state.seartext = ''
 				this.isSearch = false
 				this.sjjheert()
 			},
@@ -101,7 +102,7 @@
 			},
 			sjjheert() {
 				this.$refs['sseert' + this.xseerr][0].iqhjwr()
-				this.$store.state.seartext = ''
+				// this.$store.state.seartext = ''
 			}
 		},
 		onShow() {
